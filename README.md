@@ -17,6 +17,8 @@ Business Model Canvas is a strategic management and entrepreneurial tool. It all
 Inside your web server root folder
 ```
 git clone git@github.com:m4rciosouza/kzbmc-web.git
+cd kzbmc-web
+composer install
 ```
 Access your webserver URL from your web browser
 
