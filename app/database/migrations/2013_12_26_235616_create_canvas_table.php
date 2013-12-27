@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsuariosTable extends Migration {
+class CreateCanvasTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -11,12 +11,12 @@ class CreateUsuariosTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create( 'usuarios', function( $table )
+		Schema::create( 'canvas', function( $table )
 		{
 			$table->engine = 'MyISAM';
 			$table->increments( 'id' );
-			$table->string( 'email' )->unique();
-			$table->string( 'nome' );
+			$table->string( 'name', 50 );
+			$table->string( 'description', 50 );
 			$table->timestamps();
 		});
 	}
@@ -28,7 +28,7 @@ class CreateUsuariosTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop( 'usuarios' );
+		Schema::drop( 'canvas' );
 	}
 
 }

@@ -10,4 +10,12 @@
     @endforeach
     </table>
     <p>{{ $outro }}</p>
+    <table>
+	@foreach( $canvas as $obj )
+        <tr>
+        	<td>{{ $obj->name }}</td>
+        	<td>{{ $obj->description }}</td>
+        </tr>
+    @endforeach
+    </table>
 @stop

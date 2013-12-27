@@ -11,9 +11,16 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
-});
+/*
+ * Route for the Canvas RestFul API
+ */
+Route::pattern( 'id', '[0-9]+' );
 
-Route::get( 'usuarios', 'UsuarioController@getIndex' );
+Route::group( array( 'prefix' => 'canvas' ), function()
+{
+	Route::get('/list', 'CanvasController@listAll' );
+	Route::get('/view/{id}', 'CanvasController@view' );
+	Route::post('/create', 'CanvasController@create' );
+	Route::post('/update', 'CanvasController@update' );
+	Route::post('/delete/{id}', 'CanvasController@delete' );
+});
