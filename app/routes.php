@@ -11,16 +11,24 @@
 |
 */
 
-/*
- * Route for the Canvas RestFul API
- */
 Route::pattern( 'id', '[0-9]+' );
 
+// Route for the Canvas RestFul API
 Route::group( array( 'prefix' => 'canvas' ), function()
 {
 	Route::get('/list', 'CanvasController@listAll' );
 	Route::get('/view/{id}', 'CanvasController@view' );
 	Route::post('/create', 'CanvasController@create' );
 	Route::post('/update', 'CanvasController@update' );
-	Route::post('/delete/{id}', 'CanvasController@delete' );
+	Route::post('/delete', 'CanvasController@delete' );
+});
+
+// Route for the Item RestFul API
+Route::group( array( 'prefix' => 'item' ), function()
+{
+	Route::get('/list/{id}', 'ItemController@listAll' );
+	Route::get('/view/{id}', 'ItemController@view' );
+	Route::post('/create', 'ItemController@create' );
+	Route::post('/update', 'ItemController@update' );
+	Route::post('/delete', 'ItemController@delete' );
 });

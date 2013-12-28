@@ -1,6 +1,11 @@
 <?php
 namespace KZ\Services;
 
+use \Illuminate\Support\Facades\Input;
+use \Illuminate\Support\Facades\Route;
+use \Canvas;
+use \Item;
+
 /**
  * Service that manage, process and return all the data based on Canvas service.
  * 
@@ -18,30 +23,40 @@ class CanvasService
 	 */
 	public function getAll( $orderBy = 'name', $direction = 'ASC' )
 	{
-		return \Canvas::orderBy( $orderBy, $direction )->get();
+		$arrCanvas = array();
+		$modelCanvas = Canvas::orderBy( $orderBy, $direction )->get();
+		foreach( $modelCanvas as $canvas )
+		{
+			$arrCanvas[] = $this->getCanvasArray( $canvas );
+		}
+		return count( $arrCanvas ) == 0 ? array( 'msg' => trans( 'canvas.nenhum_encontrado' ) ) : $arrCanvas;
 	}
 	
 	/**
 	 * Return a Canvas data by id.
 	 * 
-	 * @param integer $id
 	 * @return array
 	 */
-	public function view( $id ) 
+	public function view() 
 	{
-		//TODO
-		return array();
+		return $this->getCanvasArray( Canvas::find( (int) Route::input( 'id' ) ) );
 	}
 	
 	/**
 	 * Create a new Canvas.
 	 * 
-	 * @return boolean
+	 * @return array
 	 */
 	public function create()
 	{
-		//TODO
-		return TRUE;
+		$canvas = new Canvas;
+		$canvas->setAttributes();
+		if( $canvas->validate() !== FALSE )
+		{
+			return array( 'msgs' => $canvas->validate()->all() );
+		}
+		$canvas->save();
+		return array( 'id' => $canvas->id );		
 	}
 	
 	/**
@@ -51,8 +66,18 @@ class CanvasService
 	 */
 	public function update()
 	{
-		//TODO
-		return TRUE;
+		$canvas = Canvas::find( (int) Input::get( 'id' ) );
+		if( ! $canvas )
+		{
+			return array( 'msgs' => trans( 'canvas.nao_encontrado' ) );
+		}
+		$canvas->setAttributes();
+		if( $canvas->validate() !== FALSE )
+		{
+			return array( 'msgs' => $canvas->validate()->all() );
+		}
+		$canvas->save();
+		return array( 'id' => $canvas->id );	
 	}
 	
 	/**
@@ -61,9 +86,51 @@ class CanvasService
 	 * @param integer $id
 	 * @return boolean
 	 */
-	public function delete( $id )
+	public function delete()
 	{
-		//TODO
-		return TRUE;
+		$id = (int) Input::get( 'id' );
+		$canvas = Canvas::find( $id );
+		if( ! $canvas )
+		{
+			return array( 'msgs' => trans( 'canvas.nao_encontrado' ) );
+		}
+		$canvas->delete();
+		Item::where( 'canvas_id', (int) $id )->delete();
+		return array( 'id' => $id );
+	}
+	
+	/**
+	 * Forrmat and return an array with the Canvas data as well as its items.
+	 * 
+	 * @param Canvas $canvas
+	 * @return array
+	 */
+	private function getCanvasArray( $canvas )
+	{
+		if( ! $canvas )
+		{
+			return array( 'msg' => trans( 'canvas.nao_encontrado' ) );
+		}
+		$items = Item::where( 'canvas_id', $canvas->id )->get();
+		// format the items
+		$arrItems = array( 'pc' => '', 'ac' => '', 'rc' => '', 'pv' => '', 'rcl' => '',
+				'ca' => '', 'sc' => '', 'ec' => '', 'fr' => '' );
+		foreach( $items as $item )
+		{
+			$arrItems[ $item->type ][] = array(
+					'id'		=> $item->id,
+					'titulo' 	=> $item->title,
+					'descricao' => $item->description,
+					'cor'		=> $item->color
+			);
+		}
+		// format the Canvas and add the items
+		$objCanvas = array(
+				'id'		=> $canvas->id,
+				'nome' 		=> $canvas->name,
+				'descricao' => $canvas->description,
+				'itens' 	=> $arrItems
+		);
+		return $objCanvas;
 	}
 }

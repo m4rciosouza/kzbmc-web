@@ -3,6 +3,7 @@
  * Item class, store the items of a Canvas project.
  * 
  * @author marciosouza
+ * @property id
  * @property title
  * @property description
  * @property color
@@ -21,4 +22,42 @@ class Item extends Eloquent
 	const TYPE_SC  = 'sc';
 	const TYPE_EC  = 'ec';
 	const TYPE_FR  = 'fr';
+	
+	protected $visible = array( 'id', 'title', 'description', 'color', 'type' );
+	
+	/**
+	 * Set the request attrs.
+	 */
+	public function setAttributes()
+	{
+		$this->title 		= Input::get( 'title' );
+		$this->description 	= Input::get( 'description' );
+		$this->color 		= Input::get( 'color' );
+		$this->type 		= Input::get( 'type' );
+		$this->canvas_id	= Input::get( 'canvas_id' );
+	}
+	
+	/**
+	 * Validate the data.
+	 *
+	 * @return array
+	 */
+	public function validate()
+	{
+		$validator = Validator::make(
+				Input::all(),
+				array(
+						'title' 		=> 'required|max:50',
+						'description' 	=> 'required',
+						'color' 		=> 'required|max:50',
+						'type' 			=> 'required|max:3',
+						'canvas_id' 	=> 'required',
+				)
+		);
+		if ($validator->fails())
+		{
+			return $validator->messages();
+		}
+		return FALSE;
+	}
 }

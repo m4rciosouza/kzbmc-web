@@ -24,7 +24,7 @@ class CanvasController extends BaseController
 	 */
 	public function view()
 	{
-		//TODO
+		return Response::json( CanvasService::view() );
 	}
 	
 	/**
@@ -32,7 +32,7 @@ class CanvasController extends BaseController
 	 */
 	public function create()
 	{
-		//TODO
+		return Response::json( CanvasService::create() );
 	}
 	
 	/**
@@ -40,7 +40,7 @@ class CanvasController extends BaseController
 	 */
 	public function update()
 	{
-		//TODO
+		return Response::json( CanvasService::update() );
 	}
 	
 	/**
@@ -48,6 +48,6 @@ class CanvasController extends BaseController
 	 */
 	public function delete()
 	{
-		//TODO
+		return Response::json( CanvasService::delete() );
 	}
 }

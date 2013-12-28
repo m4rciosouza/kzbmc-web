@@ -52,7 +52,7 @@ return array(
 	|
 	*/
 
-	'locale' => 'en',
+	'locale' => 'pt',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -107,6 +107,7 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'CanvasServiceProvider',
+		'ItemServiceProvider',
 	),
 
 	/*
