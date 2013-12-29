@@ -20,6 +20,18 @@ git clone git@github.com:m4rciosouza/kzbmc-web.git
 cd kzbmc-web
 composer install
 ```
+To create the database tables
+```
+php artisan migrate
+```
+To populate with sample data
+```
+php artisan db:seed
+```
+To run the unit tests ( you must have installed phpunit )
+```
+phpunit
+```
 Access your webserver URL from your web browser
 
 ### License
