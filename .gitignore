@@ -3,3 +3,8 @@ vendor
 .buildpath
 .project
 .settings
+public/app/node_modules
+public/app/dist
+public/app/.tmp
+public/app/.sass-cache
+public/app/app/bower_components
