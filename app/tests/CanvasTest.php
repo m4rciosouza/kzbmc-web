@@ -69,11 +69,11 @@ class CanvasTest extends TestCase
 	
 	public function testDeleteCanvas()
 	{
-		$response = $this->action( 'POST', 'CanvasController@delete', array( 'id' => '5' ) );
+		$response = $this->action( 'DELETE', 'CanvasController@delete', array( 'id' => '5' ) );
 		$this->assertTrue( $response->isOk() );
 		$this->assertContains( 'msgs', $response->getContent() );
 		
-		$response = $this->action( 'POST', 'CanvasController@delete', array( 'id' => '2' ) );
+		$response = $this->action( 'DELETE', 'CanvasController@delete', array( 'id' => '2' ) );
 		$this->assertTrue( $response->isOk() );
 		$this->assertContains( '2', $response->getContent() );
 	}

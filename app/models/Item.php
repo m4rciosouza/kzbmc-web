@@ -34,7 +34,7 @@ class Item extends Eloquent
 		$this->description 	= Input::get( 'description' );
 		$this->color 		= Input::get( 'color' );
 		$this->type 		= Input::get( 'type' );
-		$this->canvas_id	= Input::get( 'canvas_id' );
+		$this->canvas_id	= Input::get( 'canvas_id', Input::get( 'canvasId' ) );
 	}
 	
 	/**
@@ -45,7 +45,13 @@ class Item extends Eloquent
 	public function validate()
 	{
 		$validator = Validator::make(
-				Input::all(),
+				array(
+						'title' 		=> $this->title,
+						'description' 	=> $this->description,
+						'color' 		=> $this->color,
+						'type' 			=> $this->type,
+						'canvas_id' 	=> $this->canvas_id,
+				),
 				array(
 						'title' 		=> 'required|max:50',
 						'description' 	=> 'required',

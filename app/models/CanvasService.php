@@ -66,7 +66,7 @@ class CanvasService
 	 */
 	public function update()
 	{
-		$canvas = Canvas::find( (int) Input::get( 'id' ) );
+		$canvas = Canvas::find( (int) Route::input( 'id' ) );
 		if( ! $canvas )
 		{
 			return array( 'msgs' => trans( 'canvas.nao_encontrado' ) );
@@ -88,7 +88,7 @@ class CanvasService
 	 */
 	public function delete()
 	{
-		$id = (int) Input::get( 'id' );
+		$id = (int) Route::input( 'id' );
 		$canvas = Canvas::find( $id );
 		if( ! $canvas )
 		{

@@ -78,11 +78,11 @@ class ItemTest extends TestCase
 	
 	public function testDeleteItem()
 	{
-		$response = $this->action( 'POST', 'ItemController@delete', array( 'id' => '5' ) );
+		$response = $this->action( 'DELETE', 'ItemController@delete', array( 'id' => '5' ) );
 		$this->assertTrue( $response->isOk() );
 		$this->assertContains( 'msgs', $response->getContent() );
 		
-		$response = $this->action( 'POST', 'ItemController@delete', array( 'id' => '3' ) );
+		$response = $this->action( 'DELETE', 'ItemController@delete', array( 'id' => '3' ) );
 		$this->assertTrue( $response->isOk() );
 		$this->assertContains( '3', $response->getContent() );
 	}

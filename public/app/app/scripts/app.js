@@ -1,8 +1,9 @@
 'use strict';
 
 angular.module('LocalStorageModule').value('prefix', 'kzbmc');
-angular.module('kzbmcMobileApp', [
+var kzbmcMobileApp = angular.module('kzbmcMobileApp', [
   'ngRoute',
+  'ngResource',
   'LocalStorageModule',
   'ui.sortable'
 ])
@@ -20,3 +21,17 @@ angular.module('kzbmcMobileApp', [
         redirectTo: '/'
       });
   });
+
+kzbmcMobileApp.factory( 'CanvasService', [ '$resource', function( $resource ) {
+	return $resource(
+			'http://localhost:8888/kzbmc-web/public/canvas/:id',
+			{ id : '@id' }
+		);
+}]);
+
+kzbmcMobileApp.factory( 'ItemService', [ '$resource', function( $resource ) {
+	return $resource(
+			'http://localhost:8888/kzbmc-web/public/item/:id',
+			{ id : '@id' }
+		);
+}]);

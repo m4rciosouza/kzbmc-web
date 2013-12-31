@@ -69,7 +69,7 @@ class ItemService
 	 */
 	public function update()
 	{
-		$item = Item::find( (int) Input::get( 'id' ) );
+		$item = Item::find( (int) Route::input( 'id' ) );
 		if( ! $item )
 		{
 			return array( 'msgs' => trans( 'item.nao_encontrado' ) );
@@ -90,7 +90,7 @@ class ItemService
 	 */
 	public function delete()
 	{
-		$id = (int) Input::get( 'id' );
+		$id = (int) Route::input( 'id' );
 		$item = Item::find( $id );
 		if( ! $item )
 		{

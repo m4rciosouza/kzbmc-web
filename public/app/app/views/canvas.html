@@ -4,6 +4,12 @@
 	</h1>
 </div>
 
+<div class="row" ng-show="loading">
+	<div class="col-xs-12 kz_center">
+		<img ng-src="images/loader.gif" alt="Carregando..." />
+	</div>
+</div>
+
 <!-- Big Screens -->
 <div class="hidden-xs">
 	<table class="kz_width_100 kz_border">
@@ -27,12 +33,12 @@
 						<div ng-repeat="item in projeto.itens.pc" class="alert alert-{{item.cor}} kz_mouse_cursor">
 							<p style="text-align : right;">
 								<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
-									ng-click="modalEdit('pc', 'Editar item de Parceiros Chave', $index)">
+									ng-click="modalEdit('pc', 'Editar item de Parceiros Chave', item.id)">
 									<span class="glyphicon glyphicon-pencil"></span>
 								</a>
 		      					&nbsp;&nbsp;
 		      					<a href="" alt="Remover" title="Remover" data-toggle="modal" data-target="#removerItem"
-		      						ng-click="modalEdit('pc', 'Remover item de Parceiros Chave', $index)">
+		      						ng-click="modalEdit('pc', 'Remover item de Parceiros Chave', item.id)">
 		      						<span class="glyphicon glyphicon-remove"></span>
 		      					</a>
 		      				</p>
@@ -58,12 +64,12 @@
 						<div ng-repeat="item in projeto.itens.ac" class="alert alert-{{item.cor}} kz_mouse_cursor">
 							<p style="text-align : right;">
 								<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
-									ng-click="modalEdit('ac', 'Editar item de Atividades Chave', $index)">
+									ng-click="modalEdit('ac', 'Editar item de Atividades Chave', item.id)">
 									<span class="glyphicon glyphicon-pencil"></span>
 								</a>
 		      					&nbsp;&nbsp;
 		      					<a href="" alt="Remover" title="Remover" data-toggle="modal" data-target="#removerItem"
-		      						ng-click="modalEdit('ac', 'Remover item de Atividades Chave', $index)">
+		      						ng-click="modalEdit('ac', 'Remover item de Atividades Chave', item.id)">
 		      						<span class="glyphicon glyphicon-remove"></span>
 		      					</a>
 		      				</p>
@@ -89,12 +95,12 @@
 						<div ng-repeat="item in projeto.itens.pv" class="alert alert-{{item.cor}} kz_mouse_cursor">
 							<p style="text-align : right;">
 								<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
-									ng-click="modalEdit('pv', 'Editar item de Propostas de Valor', $index)">
+									ng-click="modalEdit('pv', 'Editar item de Propostas de Valor', item.id)">
 									<span class="glyphicon glyphicon-pencil"></span>
 								</a>
 		      					&nbsp;&nbsp;
 		      					<a href="" alt="Remover" title="Remover" data-toggle="modal" data-target="#removerItem"
-		      						ng-click="modalEdit('pv', 'Remover item de Propostas de Valor', $index)">
+		      						ng-click="modalEdit('pv', 'Remover item de Propostas de Valor', item.id)">
 		      						<span class="glyphicon glyphicon-remove"></span>
 		      					</a>
 		      				</p>
@@ -120,12 +126,12 @@
 						<div ng-repeat="item in projeto.itens.rcl" class="alert alert-{{item.cor}} kz_mouse_cursor">
 							<p style="text-align : right;">
 								<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
-									ng-click="modalEdit('rcl', 'Editar item de Relacionamento com os Clientes', $index)">
+									ng-click="modalEdit('rcl', 'Editar item de Relacionamento com os Clientes', item.id)">
 									<span class="glyphicon glyphicon-pencil"></span>
 								</a>
 		      					&nbsp;&nbsp;
 		      					<a href="" alt="Remover" title="Remover" data-toggle="modal" data-target="#removerItem"
-		      						ng-click="modalEdit('rcl', 'Remover item de Relacionamento com os Clientes', $index)">
+		      						ng-click="modalEdit('rcl', 'Remover item de Relacionamento com os Clientes', item.id)">
 		      						<span class="glyphicon glyphicon-remove"></span>
 		      					</a>
 		      				</p>
@@ -151,12 +157,12 @@
 						<div ng-repeat="item in projeto.itens.sc" class="alert alert-{{item.cor}} kz_mouse_cursor">
 							<p style="text-align : right;">
 								<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
-									ng-click="modalEdit('sc', 'Editar item de Segmentos de Clientes', $index)">
+									ng-click="modalEdit('sc', 'Editar item de Segmentos de Clientes', item.id)">
 									<span class="glyphicon glyphicon-pencil"></span>
 								</a>
 		      					&nbsp;&nbsp;
 		      					<a href="" alt="Remover" title="Remover" data-toggle="modal" data-target="#removerItem"
-		      						ng-click="modalEdit('sc', 'Remover item de Segmentos de Clientes', $index)">
+		      						ng-click="modalEdit('sc', 'Remover item de Segmentos de Clientes', item.id)">
 		      						<span class="glyphicon glyphicon-remove"></span>
 		      					</a>
 		      				</p>
@@ -184,12 +190,12 @@
 						<div ng-repeat="item in projeto.itens.rc" class="alert alert-{{item.cor}} kz_mouse_cursor">
 							<p style="text-align : right;">
 								<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
-									ng-click="modalEdit('rc', 'Editar item de Recursos Chave', $index)">
+									ng-click="modalEdit('rc', 'Editar item de Recursos Chave', item.id)">
 									<span class="glyphicon glyphicon-pencil"></span>
 								</a>
 		      					&nbsp;&nbsp;
 		      					<a href="" alt="Remover" title="Remover" data-toggle="modal" data-target="#removerItem"
-		      						ng-click="modalEdit('rc', 'Remover item de Recursos Chave', $index)">
+		      						ng-click="modalEdit('rc', 'Remover item de Recursos Chave', item.id)">
 		      						<span class="glyphicon glyphicon-remove"></span>
 		      					</a>
 		      				</p>
@@ -213,12 +219,12 @@
 						<div ng-repeat="item in projeto.itens.ca" class="alert alert-{{item.cor}} kz_mouse_cursor">
 							<p style="text-align : right;">
 								<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
-									ng-click="modalEdit('ca', 'Editar item de Canais', $index)">
+									ng-click="modalEdit('ca', 'Editar item de Canais', item.id)">
 									<span class="glyphicon glyphicon-pencil"></span>
 								</a>
 		      					&nbsp;&nbsp;
 		      					<a href="" alt="Remover" title="Remover" data-toggle="modal" data-target="#removerItem"
-		      						ng-click="modalEdit('ca', 'Remover item de Canais', $index)">
+		      						ng-click="modalEdit('ca', 'Remover item de Canais', item.id)">
 		      						<span class="glyphicon glyphicon-remove"></span>
 		      					</a>
 		      				</p>
@@ -249,12 +255,12 @@
 						<div ng-repeat="item in projeto.itens.ec" class="alert alert-{{item.cor}} kz_mouse_cursor">
 							<p style="text-align : right;">
 								<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
-									ng-click="modalEdit('ec', 'Editar item de Estrutura de Custo', $index)">
+									ng-click="modalEdit('ec', 'Editar item de Estrutura de Custo', item.id)">
 									<span class="glyphicon glyphicon-pencil"></span>
 								</a>
 		      					&nbsp;&nbsp;
 		      					<a href="" alt="Remover" title="Remover" data-toggle="modal" data-target="#removerItem"
-		      						ng-click="modalEdit('ec', 'Remover item de Estrutura de Custo', $index)">
+		      						ng-click="modalEdit('ec', 'Remover item de Estrutura de Custo', item.id)">
 		      						<span class="glyphicon glyphicon-remove"></span>
 		      					</a>
 		      				</p>
@@ -278,12 +284,12 @@
 						<div ng-repeat="item in projeto.itens.fr" class="alert alert-{{item.cor}} kz_mouse_cursor">
 							<p style="text-align : right;">
 								<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
-									ng-click="modalEdit('fr', 'Editar item de Fluxo de Receita', $index)">
+									ng-click="modalEdit('fr', 'Editar item de Fluxo de Receita', item.id)">
 									<span class="glyphicon glyphicon-pencil"></span>
 								</a>
 		      					&nbsp;&nbsp;
 		      					<a href="" alt="Remover" title="Remover" data-toggle="modal" data-target="#removerItem"
-		      						ng-click="modalEdit('fr', 'Remover item de Fluxo de Receita', $index)">
+		      						ng-click="modalEdit('fr', 'Remover item de Fluxo de Receita', item.id)">
 		      						<span class="glyphicon glyphicon-remove"></span>
 		      					</a>
 		      				</p>
@@ -318,12 +324,12 @@
 				<div ng-repeat="item in projeto.itens.pc" class="alert alert-{{item.cor}} kz_mouse_cursor">
 					<p style="text-align : right;">
 						<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
-							ng-click="modalEdit('pc', 'Editar item de Parceiros Chave', $index)">
+							ng-click="modalEdit('pc', 'Editar item de Parceiros Chave', item.id)">
 							<span class="glyphicon glyphicon-pencil"></span>
 						</a>
       					&nbsp;&nbsp;
       					<a href="" alt="Remover" title="Remover" data-toggle="modal" data-target="#removerItem"
-      						ng-click="modalEdit('pc', 'Remover item de Parceiros Chave', $index)">
+      						ng-click="modalEdit('pc', 'Remover item de Parceiros Chave', item.id)">
       						<span class="glyphicon glyphicon-remove"></span>
       					</a>
       				</p>
@@ -353,12 +359,12 @@
 				<div ng-repeat="item in projeto.itens.ac" class="alert alert-{{item.cor}} kz_mouse_cursor">
 					<p style="text-align : right;">
 						<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
-							ng-click="modalEdit('ac', 'Editar item de Atividades Chave', $index)">
+							ng-click="modalEdit('ac', 'Editar item de Atividades Chave', item.id)">
 							<span class="glyphicon glyphicon-pencil"></span>
 						</a>
       					&nbsp;&nbsp;
       					<a href="" alt="Remover" title="Remover" data-toggle="modal" data-target="#removerItem"
-      						ng-click="modalEdit('ac', 'Remover item de Atividades Chave', $index)">
+      						ng-click="modalEdit('ac', 'Remover item de Atividades Chave', item.id)">
       						<span class="glyphicon glyphicon-remove"></span>
       					</a>
       				</p>
@@ -388,12 +394,12 @@
 				<div ng-repeat="item in projeto.itens.rc" class="alert alert-{{item.cor}} kz_mouse_cursor">
 					<p style="text-align : right;">
 						<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
-							ng-click="modalEdit('rc', 'Editar item de Recursos Chave', $index)">
+							ng-click="modalEdit('rc', 'Editar item de Recursos Chave', item.id)">
 							<span class="glyphicon glyphicon-pencil"></span>
 						</a>
       					&nbsp;&nbsp;
       					<a href="" alt="Remover" title="Remover" data-toggle="modal" data-target="#removerItem"
-      						ng-click="modalEdit('rc', 'Remover item de Recursos Chave', $index)">
+      						ng-click="modalEdit('rc', 'Remover item de Recursos Chave', item.id)">
       						<span class="glyphicon glyphicon-remove"></span>
       					</a>
       				</p>
@@ -423,12 +429,12 @@
 				<div ng-repeat="item in projeto.itens.pv" class="alert alert-{{item.cor}} kz_mouse_cursor">
 					<p style="text-align : right;">
 						<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
-							ng-click="modalEdit('pv', 'Editar item de Propostas de Valor', $index)">
+							ng-click="modalEdit('pv', 'Editar item de Propostas de Valor', item.id)">
 							<span class="glyphicon glyphicon-pencil"></span>
 						</a>
       					&nbsp;&nbsp;
       					<a href="" alt="Remover" title="Remover" data-toggle="modal" data-target="#removerItem"
-      						ng-click="modalEdit('pv', 'Remover item de Propostas de Valor', $index)">
+      						ng-click="modalEdit('pv', 'Remover item de Propostas de Valor', item.id)">
       						<span class="glyphicon glyphicon-remove"></span>
       					</a>
       				</p>
@@ -458,12 +464,12 @@
 				<div ng-repeat="item in projeto.itens.rcl" class="alert alert-{{item.cor}} kz_mouse_cursor">
 					<p style="text-align : right;">
 						<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
-							ng-click="modalEdit('rcl', 'Editar item de Relacionamento com os Clientes', $index)">
+							ng-click="modalEdit('rcl', 'Editar item de Relacionamento com os Clientes', item.id)">
 							<span class="glyphicon glyphicon-pencil"></span>
 						</a>
       					&nbsp;&nbsp;
       					<a href="" alt="Remover" title="Remover" data-toggle="modal" data-target="#removerItem"
-      						ng-click="modalEdit('rcl', 'Remover item de Relacionamento com os Clientes', $index)">
+      						ng-click="modalEdit('rcl', 'Remover item de Relacionamento com os Clientes', item.id)">
       						<span class="glyphicon glyphicon-remove"></span>
       					</a>
       				</p>
@@ -491,12 +497,12 @@
 				<div ng-repeat="item in projeto.itens.ca" class="alert alert-{{item.cor}} kz_mouse_cursor">
 					<p style="text-align : right;">
 						<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
-							ng-click="modalEdit('ca', 'Editar item de Canais', $index)">
+							ng-click="modalEdit('ca', 'Editar item de Canais', item.id)">
 							<span class="glyphicon glyphicon-pencil"></span>
 						</a>
       					&nbsp;&nbsp;
       					<a href="" alt="Remover" title="Remover" data-toggle="modal" data-target="#removerItem"
-      						ng-click="modalEdit('ca', 'Remover item de Canais', $index)">
+      						ng-click="modalEdit('ca', 'Remover item de Canais', item.id)">
       						<span class="glyphicon glyphicon-remove"></span>
       					</a>
       				</p>
@@ -526,12 +532,12 @@
 				<div ng-repeat="item in projeto.itens.sc" class="alert alert-{{item.cor}} kz_mouse_cursor">
 					<p style="text-align : right;">
 						<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
-							ng-click="modalEdit('sc', 'Editar item de Segmentos de Clientes', $index)">
+							ng-click="modalEdit('sc', 'Editar item de Segmentos de Clientes', item.id)">
 							<span class="glyphicon glyphicon-pencil"></span>
 						</a>
       					&nbsp;&nbsp;
       					<a href="" alt="Remover" title="Remover" data-toggle="modal" data-target="#removerItem"
-      						ng-click="modalEdit('sc', 'Remover item de Segmentos de Clientes', $index)">
+      						ng-click="modalEdit('sc', 'Remover item de Segmentos de Clientes', item.id)">
       						<span class="glyphicon glyphicon-remove"></span>
       					</a>
       				</p>
@@ -559,12 +565,12 @@
 				<div ng-repeat="item in projeto.itens.ec" class="alert alert-{{item.cor}} kz_mouse_cursor">
 					<p style="text-align : right;">
 						<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
-							ng-click="modalEdit('ec', 'Editar item de Estrutura de Custo', $index)">
+							ng-click="modalEdit('ec', 'Editar item de Estrutura de Custo', item.id)">
 							<span class="glyphicon glyphicon-pencil"></span>
 						</a>
       					&nbsp;&nbsp;
       					<a href="" alt="Remover" title="Remover" data-toggle="modal" data-target="#removerItem"
-      						ng-click="modalEdit('ec', 'Remover item de Estrutura de Custo', $index)">
+      						ng-click="modalEdit('ec', 'Remover item de Estrutura de Custo', item.id)">
       						<span class="glyphicon glyphicon-remove"></span>
       					</a>
       				</p>
@@ -592,12 +598,12 @@
 				<div ng-repeat="item in projeto.itens.fr" class="alert alert-{{item.cor}} kz_mouse_cursor">
 					<p style="text-align : right;">
 						<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
-							ng-click="modalEdit('fr', 'Editar item de Fluxo de Receita', $index)">
+							ng-click="modalEdit('fr', 'Editar item de Fluxo de Receita', item.id)">
 							<span class="glyphicon glyphicon-pencil"></span>
 						</a>
       					&nbsp;&nbsp;
       					<a href="" alt="Remover" title="Remover" data-toggle="modal" data-target="#removerItem"
-      						ng-click="modalEdit('fr', 'Remover item de Fluxo de Receita', $index)">
+      						ng-click="modalEdit('fr', 'Remover item de Fluxo de Receita', item.id)">
       						<span class="glyphicon glyphicon-remove"></span>
       					</a>
       				</p>

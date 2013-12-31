@@ -16,19 +16,19 @@ Route::pattern( 'id', '[0-9]+' );
 // Route for the Canvas RestFul API
 Route::group( array( 'prefix' => 'canvas' ), function()
 {
-	Route::get('/list', 'CanvasController@listAll' );
-	Route::get('/view/{id}', 'CanvasController@view' );
-	Route::post('/create', 'CanvasController@create' );
-	Route::post('/update', 'CanvasController@update' );
-	Route::post('/delete', 'CanvasController@delete' );
+	Route::get('/', 'CanvasController@listAll' );
+	Route::get('/{id}', 'CanvasController@view' );
+	Route::post('/', 'CanvasController@create' );
+	Route::post('/{id}', 'CanvasController@update' );
+	Route::delete('/{id}', 'CanvasController@delete' );
 });
 
 // Route for the Item RestFul API
 Route::group( array( 'prefix' => 'item' ), function()
 {
-	Route::get('/list/{id}', 'ItemController@listAll' );
-	Route::get('/view/{id}', 'ItemController@view' );
-	Route::post('/create', 'ItemController@create' );
-	Route::post('/update', 'ItemController@update' );
-	Route::post('/delete', 'ItemController@delete' );
+	Route::get('/canvas/{id}', 'ItemController@listAll' );
+	Route::get('/{id}', 'ItemController@view' );
+	Route::post('/', 'ItemController@create' );
+	Route::post('/{id}', 'ItemController@update' );
+	Route::delete('/{id}', 'ItemController@delete' );
 });

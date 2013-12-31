@@ -1,44 +1,55 @@
 'use strict';
 
 angular.module('kzbmcMobileApp')
-  .controller('MainCtrl', [ '$scope', 'localStorageService', function( $scope, localStorageService ) {
-	  
-	  // uncomment to clean the local storage data
-	  //localStorageService.clearAll();
+  .controller('MainCtrl', [ '$scope', 'localStorageService', 'CanvasService', function( $scope, localStorageService, CanvasService ) {
 	  
 	  // create a new canvas
 	  $scope.cadastrar = function( canvas ) {
 		  if($scope.form.$valid) {
-			  var canvasObj = { 'nome' : canvas.nome, 'descricao' : canvas.descricao, 'itens' : { 'pc' : [], 'ac' : [], 'rc' : [], 'pv' : [], 'rcl' : [], 'ca' : [], 'sc' : [], 'ec' : [], 'fr' : [] } };
-			  $scope.projetos.push( angular.toJson( canvasObj ) );
-			  localStorageService.add( 'projetos', $scope.projetos );
-			  $scope.parseProjetos();
+			  $scope.loading = true;
+			  CanvasService.save( { name : canvas.nome, description : canvas.descricao }, function( data ) {
+				    if( data.id ) {
+				      $scope.parseProjetos();
+				    }
+			    });
 		  }
 	  };
 	  
 	  // loads modal canvas data
 	  $scope.modalLoadData = function( index ) {
 		  $scope.index = index;
-		  var itemObj = $scope.projetos[ index ];
+		  var itemObj = $scope.getItemById( index );
 	    $scope.canvasEditar = { 'nome' : itemObj.nome, 'descricao' : itemObj.descricao };
+	  };
+	  
+	  // return an item by id
+	  //TODO create test case
+	  $scope.getItemById = function( id ) {
+		  for( var i = 0; i < $scope.projetos.length; i ++ ) {
+			  if( $scope.projetos[ i ].id === id ) {
+				  return $scope.projetos[ i ];
+			  }
+		  }
 	  };
 	  
     // update a canvas
     $scope.atualizar = function( canvas ) {
-          var index = $scope.index;
-          $scope.projetos[ index ].nome = canvas.nome;
-          $scope.projetos[ index ].descricao = canvas.descricao;
-          var listaProjetos = localStorageService.get( 'projetos' ) || [];
-          listaProjetos[ index ] = angular.toJson( $scope.projetos[ index ] );
-          localStorageService.add( 'projetos', listaProjetos );
-        };
+        $scope.loading = true;
+        CanvasService.save( { id : $scope.index, name : canvas.nome, description : canvas.descricao }, function( data ) {
+			      if( data.id ) {
+			        $scope.parseProjetos();
+			      }
+		      });
+      };
       
     // remove a canvas
     $scope.remover = function() {
-        $scope.projetos.splice( $scope.index, 1 );
-        var listaProjetos = localStorageService.get( 'projetos' ) || [];
-        listaProjetos.splice( $scope.index, 1 );
-        localStorageService.add( 'projetos', listaProjetos );
+        $scope.loading = true;
+        CanvasService.remove( { id : $scope.index }, function( data ) {
+			      if( data.id ) {
+			        $scope.parseProjetos();
+			      }
+		      });
       };
 	  
 	  $scope.reset = function( canvas ) {
@@ -49,11 +60,15 @@ angular.module('kzbmcMobileApp')
 	  };
 	  
 	  $scope.parseProjetos = function() {
+		  $scope.loading = true;
 		  $scope.projetos = [];
-		  var listaProjetos = localStorageService.get( 'projetos' ) || [];
-		  for( var i = 0; i < listaProjetos.length; i ++ ) {
-			  $scope.projetos.push( angular.fromJson( listaProjetos[ i ] ) );
-		  }
+		  CanvasService.query( function( data ) {
+			    var listaProjetos = data;
+			    for( var i = 0; i < listaProjetos.length; i ++ ) {
+				    $scope.projetos.push( angular.fromJson( listaProjetos[ i ] ) );
+			    }
+			    $scope.loading = false;
+		    });
 	  };
 	  
 	  $scope.parseProjetos();
