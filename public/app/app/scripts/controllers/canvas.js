@@ -6,7 +6,6 @@ angular.module( 'kzbmcMobileApp' )
     $scope.id = parseInt( $routeParams.id, 10 );
     
     // carrega o canvas
-    //TODO create unit test
     $scope.loadCanvas = function(){
 	    $scope.loading = true;
 	    CanvasService.get( { id : $scope.id }, function( data ) {
