@@ -97,7 +97,18 @@ class ItemService
 		{
 			return array( 'msgs' => trans( 'item.nao_encontrado' ) );
 		}
+		$canvasId = $item->canvas_id;
+		$type = $item->type;
 		$item->delete();
+		// update the order to avoid gaps		
+		$modelItem = Item::where( 'canvas_id', $canvasId )->where( 'type', $type )->orderBy( 'order', 'ASC' )->get();
+		$order = 0;
+		foreach( $modelItem as $objItem )
+		{
+			$objItem->order = $order;
+			$objItem->save();
+			$order ++;
+		}
 		return array( 'id' => $id );
 	}
 	
