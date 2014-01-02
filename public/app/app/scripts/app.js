@@ -32,6 +32,7 @@ kzbmcMobileApp.factory( 'CanvasService', [ '$resource', function( $resource ) {
 kzbmcMobileApp.factory( 'ItemService', [ '$resource', function( $resource ) {
 	return $resource(
 			'http://localhost:8888/kzbmc-web/public/item/:id',
-			{ id : '@id' }
+			{ id : '@id' },
+			{ reorder : { method : 'POST', url : 'http://localhost:8888/kzbmc-web/public/item/reorder' } }
 		);
 }]);

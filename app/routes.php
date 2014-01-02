@@ -31,4 +31,8 @@ Route::group( array( 'prefix' => 'item' ), function()
 	Route::post('/', 'ItemController@create' );
 	Route::post('/{id}', 'ItemController@update' );
 	Route::delete('/{id}', 'ItemController@delete' );
+	/*
+	 * params: canvasId, type, posIni, posEnd 
+	 */
+	Route::post('/reorder', 'ItemController@reorder' );
 });

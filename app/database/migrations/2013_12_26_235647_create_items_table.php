@@ -19,6 +19,7 @@ class CreateItemsTable extends Migration {
 			$table->text( 'description' );
 			$table->string( 'color', 50 );
 			$table->string( 'type', 3 );
+			$table->integer( 'order' );
 			$table->integer( 'canvas_id' );
 			$table->timestamps();
 		});

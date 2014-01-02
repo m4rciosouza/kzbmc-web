@@ -14,6 +14,7 @@ class ItemsTableSeeder extends Seeder
 			'description' => 'Description Item #1 of Project #1',
 			'color'		  => 'info',
 			'type' 		  => 'pc',
+			'order'		  => '0',
 			'canvas_id'   => '1',	 
 		));
 		
@@ -22,6 +23,7 @@ class ItemsTableSeeder extends Seeder
 			'description' => 'Description Item #2 of Project #1',
 			'color'		  => 'warning',
 			'type' 		  => 'pc',
+			'order'		  => '1',
 			'canvas_id'   => '1',
 		));
 		
@@ -30,6 +32,7 @@ class ItemsTableSeeder extends Seeder
 			'description' => 'Description Item #3 of Project #1',
 			'color'		  => 'danger',
 			'type' 		  => 'fr',
+			'order'		  => '0',
 			'canvas_id'   => '1',
 		));
 	}

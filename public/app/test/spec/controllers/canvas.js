@@ -23,7 +23,7 @@ describe('Controller: CanvasCtrl', function () {
 	  scope.projeto = angular.fromJson( scope.listaProjetos[ scope.id ] );
   });
   
-  it('should load an object array based on your kind', function () {
+  /*it('should load an object array based on your kind', function () {
 	  var itemObj = scope.obterItemObj( 'pc' );
 	  expect( itemObj[ 0 ].titulo ).toBe( 't1' );
   });
@@ -76,5 +76,5 @@ describe('Controller: CanvasCtrl', function () {
 	  scope.index = 0;
 	  scope.remover();
 	  expect( scope.projeto.itens.pc.length ).toBe( 0 );
-  });
+  });*/
 });

@@ -119,11 +119,48 @@ angular.module( 'kzbmcMobileApp' )
             $scope.iniPosition = ui.item.index();
           },
         stop : function( e, ui ) {
-            console.log( 'pos (from-to): ' + $scope.iniPosition + ', ' + ui.item.index() );
-                //$scope.listaProjetos[ $scope.id ] = angular.toJson( $scope.projeto );
-                //localStorageService.add( 'projetos', $scope.listaProjetos );
+            if( $scope.iniPosition === ui.item.index() ) {
+              return;
+            }
+            $scope.loading = true;
+            ItemService.reorder( { canvasId : $scope.projeto.id, type : $scope.getTypeByClass( ui.item.context ), posIni : $scope.iniPosition, posEnd : ui.item.index() }, function( data ) {
+              if( data.canvasId ) {
+                $scope.loadCanvas();
+              }
+            });
           },
         axis : 'y',
+      };
+    
+    $scope.getTypeByClass = function( obj ) {
+        var objClassName = ' ' + obj.className + ' ';
+        if( objClassName.indexOf( ' pc ' ) > -1 ) {
+          return 'pc';
+        }
+        if( objClassName.indexOf( ' ac ' ) > -1 ) {
+          return 'ac';
+        }
+        if( objClassName.indexOf( ' rc ' ) > -1 ) {
+          return 'rc';
+        }
+        if( objClassName.indexOf( ' pv ' ) > -1 ) {
+          return 'pv';
+        }
+        if( objClassName.indexOf( ' rcl ' ) > -1 ) {
+          return 'rcl';
+        }
+        if( objClassName.indexOf( ' ca ' ) > -1 ) {
+          return 'ca';
+        }
+        if( objClassName.indexOf( ' sc ' ) > -1 ) {
+          return 'sc';
+        }
+        if( objClassName.indexOf( ' ec ' ) > -1 ) {
+          return 'ec';
+        }
+        if( objClassName.indexOf( ' fr ' ) > -1 ) {
+          return 'fr';
+        }
       };
     
     // carrega o canvas

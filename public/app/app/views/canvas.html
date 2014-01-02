@@ -30,7 +30,7 @@
 					</a>
 					
 					<div ui-sortable="sortableOptions" ng-model="projeto.itens.pc">
-						<div ng-repeat="item in projeto.itens.pc" class="alert alert-{{item.cor}} kz_mouse_cursor">
+						<div ng-repeat="item in projeto.itens.pc" class="alert alert-{{item.cor}} kz_mouse_cursor pc">
 							<p style="text-align : right;">
 								<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
 									ng-click="modalEdit('pc', 'Editar item de Parceiros Chave', item.id)">
@@ -61,7 +61,7 @@
 					</a>
 					
 					<div ui-sortable="sortableOptions" ng-model="projeto.itens.ac">
-						<div ng-repeat="item in projeto.itens.ac" class="alert alert-{{item.cor}} kz_mouse_cursor">
+						<div ng-repeat="item in projeto.itens.ac" class="alert alert-{{item.cor}} kz_mouse_cursor ac">
 							<p style="text-align : right;">
 								<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
 									ng-click="modalEdit('ac', 'Editar item de Atividades Chave', item.id)">
@@ -92,7 +92,7 @@
 					</a>
 					
 					<div ui-sortable="sortableOptions" ng-model="projeto.itens.pv">
-						<div ng-repeat="item in projeto.itens.pv" class="alert alert-{{item.cor}} kz_mouse_cursor">
+						<div ng-repeat="item in projeto.itens.pv" class="alert alert-{{item.cor}} kz_mouse_cursor pv">
 							<p style="text-align : right;">
 								<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
 									ng-click="modalEdit('pv', 'Editar item de Propostas de Valor', item.id)">
@@ -123,7 +123,7 @@
 					</a>
 					
 					<div ui-sortable="sortableOptions" ng-model="projeto.itens.rcl">
-						<div ng-repeat="item in projeto.itens.rcl" class="alert alert-{{item.cor}} kz_mouse_cursor">
+						<div ng-repeat="item in projeto.itens.rcl" class="alert alert-{{item.cor}} kz_mouse_cursor rcl">
 							<p style="text-align : right;">
 								<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
 									ng-click="modalEdit('rcl', 'Editar item de Relacionamento com os Clientes', item.id)">
@@ -154,7 +154,7 @@
 					</a>
 					
 					<div ui-sortable="sortableOptions" ng-model="projeto.itens.sc">
-						<div ng-repeat="item in projeto.itens.sc" class="alert alert-{{item.cor}} kz_mouse_cursor">
+						<div ng-repeat="item in projeto.itens.sc" class="alert alert-{{item.cor}} kz_mouse_cursor sc">
 							<p style="text-align : right;">
 								<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
 									ng-click="modalEdit('sc', 'Editar item de Segmentos de Clientes', item.id)">
@@ -187,7 +187,7 @@
 					</a>
 					
 					<div ui-sortable="sortableOptions" ng-model="projeto.itens.rc">
-						<div ng-repeat="item in projeto.itens.rc" class="alert alert-{{item.cor}} kz_mouse_cursor">
+						<div ng-repeat="item in projeto.itens.rc" class="alert alert-{{item.cor}} kz_mouse_cursor rc">
 							<p style="text-align : right;">
 								<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
 									ng-click="modalEdit('rc', 'Editar item de Recursos Chave', item.id)">
@@ -216,7 +216,7 @@
 					</a>
 					
 					<div ui-sortable="sortableOptions" ng-model="projeto.itens.ca">
-						<div ng-repeat="item in projeto.itens.ca" class="alert alert-{{item.cor}} kz_mouse_cursor">
+						<div ng-repeat="item in projeto.itens.ca" class="alert alert-{{item.cor}} kz_mouse_cursor ca">
 							<p style="text-align : right;">
 								<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
 									ng-click="modalEdit('ca', 'Editar item de Canais', item.id)">
@@ -252,7 +252,7 @@
 					</a>
 					
 					<div ui-sortable="sortableOptions" ng-model="projeto.itens.ec">
-						<div ng-repeat="item in projeto.itens.ec" class="alert alert-{{item.cor}} kz_mouse_cursor">
+						<div ng-repeat="item in projeto.itens.ec" class="alert alert-{{item.cor}} kz_mouse_cursor ec">
 							<p style="text-align : right;">
 								<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
 									ng-click="modalEdit('ec', 'Editar item de Estrutura de Custo', item.id)">
@@ -281,7 +281,7 @@
 					</a>
 					
 					<div ui-sortable="sortableOptions" ng-model="projeto.itens.fr">
-						<div ng-repeat="item in projeto.itens.fr" class="alert alert-{{item.cor}} kz_mouse_cursor">
+						<div ng-repeat="item in projeto.itens.fr" class="alert alert-{{item.cor}} kz_mouse_cursor fr">
 							<p style="text-align : right;">
 								<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
 									ng-click="modalEdit('fr', 'Editar item de Fluxo de Receita', item.id)">
@@ -321,7 +321,7 @@
 			</a>
 			
 			<div ui-sortable="sortableOptions" ng-model="projeto.itens.pc">
-				<div ng-repeat="item in projeto.itens.pc" class="alert alert-{{item.cor}} kz_mouse_cursor">
+				<div ng-repeat="item in projeto.itens.pc" class="alert alert-{{item.cor}} kz_mouse_cursor pc">
 					<p style="text-align : right;">
 						<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
 							ng-click="modalEdit('pc', 'Editar item de Parceiros Chave', item.id)">
@@ -356,7 +356,7 @@
 			</a>
 			
 			<div ui-sortable="sortableOptions" ng-model="projeto.itens.ac">
-				<div ng-repeat="item in projeto.itens.ac" class="alert alert-{{item.cor}} kz_mouse_cursor">
+				<div ng-repeat="item in projeto.itens.ac" class="alert alert-{{item.cor}} kz_mouse_cursor ac">
 					<p style="text-align : right;">
 						<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
 							ng-click="modalEdit('ac', 'Editar item de Atividades Chave', item.id)">
@@ -391,7 +391,7 @@
 			</a>
 			
 			<div ui-sortable="sortableOptions" ng-model="projeto.itens.rc">
-				<div ng-repeat="item in projeto.itens.rc" class="alert alert-{{item.cor}} kz_mouse_cursor">
+				<div ng-repeat="item in projeto.itens.rc" class="alert alert-{{item.cor}} kz_mouse_cursor rc">
 					<p style="text-align : right;">
 						<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
 							ng-click="modalEdit('rc', 'Editar item de Recursos Chave', item.id)">
@@ -426,7 +426,7 @@
 			</a>
 			
 			<div ui-sortable="sortableOptions" ng-model="projeto.itens.pv">
-				<div ng-repeat="item in projeto.itens.pv" class="alert alert-{{item.cor}} kz_mouse_cursor">
+				<div ng-repeat="item in projeto.itens.pv" class="alert alert-{{item.cor}} kz_mouse_cursor pv">
 					<p style="text-align : right;">
 						<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
 							ng-click="modalEdit('pv', 'Editar item de Propostas de Valor', item.id)">
@@ -461,7 +461,7 @@
 			</a>
 			
 			<div ui-sortable="sortableOptions" ng-model="projeto.itens.rcl">
-				<div ng-repeat="item in projeto.itens.rcl" class="alert alert-{{item.cor}} kz_mouse_cursor">
+				<div ng-repeat="item in projeto.itens.rcl" class="alert alert-{{item.cor}} kz_mouse_cursor rcl">
 					<p style="text-align : right;">
 						<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
 							ng-click="modalEdit('rcl', 'Editar item de Relacionamento com os Clientes', item.id)">
@@ -494,7 +494,7 @@
 			</a>
 			
 			<div ui-sortable="sortableOptions" ng-model="projeto.itens.ca">
-				<div ng-repeat="item in projeto.itens.ca" class="alert alert-{{item.cor}} kz_mouse_cursor">
+				<div ng-repeat="item in projeto.itens.ca" class="alert alert-{{item.cor}} kz_mouse_cursor ca">
 					<p style="text-align : right;">
 						<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
 							ng-click="modalEdit('ca', 'Editar item de Canais', item.id)">
@@ -529,7 +529,7 @@
 			</a>
 			
 			<div ui-sortable="sortableOptions" ng-model="projeto.itens.sc">
-				<div ng-repeat="item in projeto.itens.sc" class="alert alert-{{item.cor}} kz_mouse_cursor">
+				<div ng-repeat="item in projeto.itens.sc" class="alert alert-{{item.cor}} kz_mouse_cursor sc">
 					<p style="text-align : right;">
 						<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
 							ng-click="modalEdit('sc', 'Editar item de Segmentos de Clientes', item.id)">
@@ -562,7 +562,7 @@
 			</a>
 			
 			<div ui-sortable="sortableOptions" ng-model="projeto.itens.ec">
-				<div ng-repeat="item in projeto.itens.ec" class="alert alert-{{item.cor}} kz_mouse_cursor">
+				<div ng-repeat="item in projeto.itens.ec" class="alert alert-{{item.cor}} kz_mouse_cursor ec">
 					<p style="text-align : right;">
 						<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
 							ng-click="modalEdit('ec', 'Editar item de Estrutura de Custo', item.id)">
@@ -595,7 +595,7 @@
 			</a>
 			
 			<div ui-sortable="sortableOptions" ng-model="projeto.itens.fr">
-				<div ng-repeat="item in projeto.itens.fr" class="alert alert-{{item.cor}} kz_mouse_cursor">
+				<div ng-repeat="item in projeto.itens.fr" class="alert alert-{{item.cor}} kz_mouse_cursor fr">
 					<p style="text-align : right;">
 						<a href="" data-toggle="modal" data-target="#editarItem" alt="Editar" title="Editar"
 							ng-click="modalEdit('fr', 'Editar item de Fluxo de Receita', item.id)">

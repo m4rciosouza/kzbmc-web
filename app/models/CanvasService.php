@@ -111,7 +111,7 @@ class CanvasService
 		{
 			return array( 'msg' => trans( 'canvas.nao_encontrado' ) );
 		}
-		$items = Item::where( 'canvas_id', $canvas->id )->get();
+		$items = Item::where( 'canvas_id', $canvas->id )->orderBy( 'order', 'ASC' )->get();
 		// format the items
 		$arrItems = array( 'pc' => '', 'ac' => '', 'rc' => '', 'pv' => '', 'rcl' => '',
 				'ca' => '', 'sc' => '', 'ec' => '', 'fr' => '' );
@@ -121,7 +121,8 @@ class CanvasService
 					'id'		=> $item->id,
 					'titulo' 	=> $item->title,
 					'descricao' => $item->description,
-					'cor'		=> $item->color
+					'cor'		=> $item->color,
+					'order'		=> $item->order,
 			);
 		}
 		// format the Canvas and add the items

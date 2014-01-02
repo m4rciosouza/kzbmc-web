@@ -20,7 +20,7 @@ class ItemService
 	 * @param $direction ASC or DESC
 	 * @return array
 	 */
-	public function getAll( $orderBy = 'id', $direction = 'ASC' )
+	public function getAll( $orderBy = 'order', $direction = 'ASC' )
 	{
 		$canvasId = Route::input( 'id' );
 		$arrItems = array();
@@ -58,6 +58,7 @@ class ItemService
 		{
 			return array( 'msgs' => $item->validate()->all() );
 		}
+		$item->order = Item::where( 'canvas_id', (int) $item->canvas_id )->where( 'type', $item->type )->count();
 		$item->save();
 		return array( 'id' => $item->id );		
 	}
@@ -65,7 +66,7 @@ class ItemService
 	/**
 	 * Update an Item.
 	 * 
-	 * @return boolean
+	 * @return array
 	 */
 	public function update()
 	{
@@ -86,7 +87,7 @@ class ItemService
 	/**
 	 * Delete an Item.
 	 * 
-	 * @return boolean
+	 * @return array
 	 */
 	public function delete()
 	{
@@ -98,6 +99,39 @@ class ItemService
 		}
 		$item->delete();
 		return array( 'id' => $id );
+	}
+	
+	/**
+	 * Reorder the position of an Item.
+	 *
+	 * @return array
+	 */
+	public function reorder()
+	{
+		$canvasId 	= (int) Input::get( 'canvasId' );
+		$type 		= addslashes( Input::get( 'type' ) );
+		$posIni 	= (int) Input::get( 'posIni' );
+		$posEnd 	= (int) Input::get( 'posEnd' );
+		// validate the input data
+		if( $canvasId <= 0 || empty( $type ) || $posIni < 0 || $posEnd < 0 )
+		{
+			return array( 'msgs' => trans( 'item.parametros_incorretos' ) );
+		}
+		// get the items to exchange ordering
+		$itemIni = Item::where( 'canvas_id', $canvasId )->where( 'type', $type )
+							  ->where( 'order', $posIni )->first();
+		$itemEnd = Item::where( 'canvas_id', $canvasId )->where( 'type', $type )
+							  ->where( 'order', $posEnd )->first();
+		if( ! $itemIni || ! $itemEnd )
+		{
+			return array( 'msgs' => trans( 'item.nao_encontrado' ) );
+		}
+		// exchange the order and update
+		$itemIni->order = $posEnd;
+		$itemIni->save();
+		$itemEnd->order = $posIni;
+		$itemEnd->save();
+		return array( 'canvasId' => $canvasId );
 	}
 	
 	/**
@@ -118,6 +152,7 @@ class ItemService
 				'titulo' 	=> $item->title,
 				'descricao' => $item->description,
 				'cor'		=> $item->color,
+				'order'	    => $item->order,
 		);
 		return $objItem;
 	}

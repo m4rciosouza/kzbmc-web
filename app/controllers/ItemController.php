@@ -50,4 +50,12 @@ class ItemController extends BaseController
 	{
 		return Response::json( ItemService::delete() );
 	}
+	
+	/**
+	 * Reorder an Item.
+	 */
+	public function reorder()
+	{
+		return Response::json( ItemService::reorder() );
+	}
 }

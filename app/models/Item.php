@@ -3,12 +3,13 @@
  * Item class, store the items of a Canvas project.
  * 
  * @author marciosouza
- * @property id
- * @property title
- * @property description
- * @property color
- * @property type
- * @property canvas_id
+ * @property integer id
+ * @property string title
+ * @property string description
+ * @property string color
+ * @property string type
+ * @property integer order
+ * @property integer canvas_id
  *
  */
 class Item extends Eloquent
@@ -23,7 +24,7 @@ class Item extends Eloquent
 	const TYPE_EC  = 'ec';
 	const TYPE_FR  = 'fr';
 	
-	protected $visible = array( 'id', 'title', 'description', 'color', 'type' );
+	protected $visible = array( 'id', 'title', 'description', 'color', 'type', 'order' );
 	
 	/**
 	 * Set the request attrs.

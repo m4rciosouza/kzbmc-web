@@ -23,7 +23,6 @@ angular.module('kzbmcMobileApp')
 	  };
 	  
 	  // return an item by id
-	  //TODO create test case
 	  $scope.getItemById = function( id ) {
 		  for( var i = 0; i < $scope.projetos.length; i ++ ) {
 			  if( $scope.projetos[ i ].id === id ) {
@@ -59,6 +58,7 @@ angular.module('kzbmcMobileApp')
 		  }
 	  };
 	  
+	  // return all the projects
 	  $scope.parseProjetos = function() {
 		  $scope.loading = true;
 		  $scope.projetos = [];
