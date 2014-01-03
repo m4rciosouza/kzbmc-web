@@ -1,17 +1,17 @@
-<div class="page-header kz_center">
+<div class="page-header kz_center" ng-show="isAuth()">
 	<h1>
 		{{projeto.nome}}<br /> <small>{{projeto.descricao}}</small>
 	</h1>
 </div>
 
-<div class="row" ng-show="loading">
+<div class="row" ng-show="loading" ng-show="isAuth()">
 	<div class="col-xs-12 kz_center">
 		<img ng-src="images/loader.gif" alt="Carregando..." />
 	</div>
 </div>
 
 <!-- Big Screens -->
-<div class="hidden-xs">
+<div class="hidden-xs" ng-show="isAuth()">
 	<table class="kz_width_100 kz_border">
 		<tbody>
 			<tr>
@@ -303,7 +303,7 @@
 </div>
 
 <!-- Small Screens -->
-<div class="visible-xs">
+<div class="visible-xs" ng-show="isAuth()">
 	<div class="row">
 		<!-- Parceiros Chave -->
 		<div class="col-xs-12 kz_border_top">

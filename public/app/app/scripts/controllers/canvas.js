@@ -164,5 +164,9 @@ angular.module( 'kzbmcMobileApp' )
     
     // carrega o canvas
     $scope.loadCanvas();
+    
+    $scope.isAuth = function() {
+		  return sessionStorage.authenticated;
+	  };
    
   }]);

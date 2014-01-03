@@ -9,6 +9,8 @@ describe('Controller: CanvasCtrl', function () {
     scope,
   $httpBackend;
   
+  var LOCALHOST = 'http://localhost:8888/kzbmc-web/public';
+  
   var project = { 'id' : '1', 'nome' : 'projeto 1', 'descricao' : 'desc projeto 1', 'itens' : { 'pc' : [ { 'id' : '1', 'titulo' : 't1', 'descricao' : 'd1', 'cor' : 'success' } ], 'ac' : [ { 'id' : '1', 'titulo' : 't1', 'descricao' : 'd1', 'cor' : 'success', 'order' : '0' }, { 'id' : '2', 'titulo' : 't2', 'descricao' : 'd2', 'cor' : 'warning', 'order' : '1' } ] } };
   var projectAdded = { 'id' : '1', 'nome' : 'projeto 1', 'descricao' : 'desc projeto 1', 'itens' : { 'pc' : [ { 'id' : '1', 'titulo' : 't1', 'descricao' : 'd1', 'cor' : 'success' }, { 'id' : '2', 'titulo' : 't2', 'descricao' : 'd2', 'cor' : 'warning' } ] } };
   var projectUpdated = { 'id' : '1', 'nome' : 'projeto 1', 'descricao' : 'desc projeto 1', 'itens' : { 'pc' : [ { 'id' : '1', 'titulo' : 't2', 'descricao' : 'd2', 'cor' : 'warning' } ] } };
@@ -20,11 +22,11 @@ describe('Controller: CanvasCtrl', function () {
 	  // Set up the mock http service responses
       $httpBackend = $injector.get( '$httpBackend' );
       // set the response
-      $httpBackend.whenGET( 'http://localhost:8888/kzbmc-web/public/canvas/NaN' ).respond( project );
-      $httpBackend.whenPOST( 'http://localhost:8888/kzbmc-web/public/item' ).respond( { 'id' : '2' } );
-      $httpBackend.whenPOST( 'http://localhost:8888/kzbmc-web/public/item/1' ).respond( { 'id' : '1' } );
-      $httpBackend.whenDELETE( 'http://localhost:8888/kzbmc-web/public/item/1' ).respond( { 'id' : '1' } );
-      $httpBackend.whenPOST( 'http://localhost:8888/kzbmc-web/public/item/reorder?' ).respond( { 'canvasId' : '1' } );
+      $httpBackend.whenGET( LOCALHOST + '/canvas/NaN' ).respond( project );
+      $httpBackend.whenPOST( LOCALHOST + '/item' ).respond( { 'id' : '2' } );
+      $httpBackend.whenPOST( LOCALHOST + '/item/1' ).respond( { 'id' : '1' } );
+      $httpBackend.whenDELETE( LOCALHOST + '/item/1' ).respond( { 'id' : '1' } );
+      $httpBackend.whenPOST( LOCALHOST + '/item/reorder?' ).respond( { 'canvasId' : '1' } );
 	  // inject the scope
       scope = $injector.get( '$rootScope' );
       // inject the controller
@@ -35,7 +37,7 @@ describe('Controller: CanvasCtrl', function () {
     }));
 
   beforeEach(function() {
-	  $httpBackend.expectGET( 'http://localhost:8888/kzbmc-web/public/canvas/NaN' );
+	  $httpBackend.expectGET( LOCALHOST + '/canvas/NaN' );
 	  $httpBackend.flush();
   });
   
@@ -69,8 +71,8 @@ describe('Controller: CanvasCtrl', function () {
   });
   
   it('should create a new project item', function () {
-	  $httpBackend.expectPOST( 'http://localhost:8888/kzbmc-web/public/item' );
-	  $httpBackend.expectGET( 'http://localhost:8888/kzbmc-web/public/canvas/1' ).respond( projectAdded );
+	  $httpBackend.expectPOST( LOCALHOST + '/item' );
+	  $httpBackend.expectGET( LOCALHOST + '/canvas/1' ).respond( projectAdded );
 	  scope.id = '1';
 	  scope.tipo = 'pc';
 	  scope.cadastrar( { 'titulo' : 't2', 'descricao' : 'd2', 'cor' : 'warning' } );
@@ -88,8 +90,8 @@ describe('Controller: CanvasCtrl', function () {
 	  expect( scope.projeto.itens.pc[ 0 ].titulo ).toBe( 't1' );
 	  expect( scope.projeto.itens.pc[ 0 ].descricao ).toBe( 'd1' );
 	  expect( scope.projeto.itens.pc[ 0 ].cor ).toBe( 'success' );
-	  $httpBackend.expectPOST( 'http://localhost:8888/kzbmc-web/public/item/1' );
-	  $httpBackend.expectGET( 'http://localhost:8888/kzbmc-web/public/canvas/NaN' ).respond( projectUpdated );
+	  $httpBackend.expectPOST( LOCALHOST + '/item/1' );
+	  $httpBackend.expectGET( LOCALHOST + '/canvas/NaN' ).respond( projectUpdated );
 	  scope.atualizar( { 'titulo' : 't2', 'descricao' : 'd2', 'cor' : 'warning' } );
 	  $httpBackend.flush();
 	  expect( scope.projeto.itens.pc.length ).toBe( 1 );
@@ -103,8 +105,8 @@ describe('Controller: CanvasCtrl', function () {
 	  scope.tipo = 'pc';
 	  scope.index = 1;
 	  expect( scope.projeto.itens.pc.length ).toBe( 1 );
-	  $httpBackend.expectDELETE( 'http://localhost:8888/kzbmc-web/public/item/1' );
-	  $httpBackend.expectGET( 'http://localhost:8888/kzbmc-web/public/canvas/NaN' ).respond( projectDeleted );
+	  $httpBackend.expectDELETE( LOCALHOST + '/item/1' );
+	  $httpBackend.expectGET( LOCALHOST + '/canvas/NaN' ).respond( projectDeleted );
 	  scope.remover();
 	  $httpBackend.flush();
 	  expect( scope.projeto.itens.pc.length ).toBe( 0 );
@@ -127,8 +129,8 @@ describe('Controller: CanvasCtrl', function () {
 	  scope.iniPosition = '0';
 	  expect( scope.projeto.itens.ac[ 0 ].order ).toBe( '0' );
 	  expect( scope.projeto.itens.ac[ 1 ].order ).toBe( '1' );
-	  $httpBackend.expectPOST( 'http://localhost:8888/kzbmc-web/public/item/reorder?' );
-	  $httpBackend.expectGET( 'http://localhost:8888/kzbmc-web/public/canvas/NaN' ).respond( projectReorder );
+	  $httpBackend.expectPOST( LOCALHOST + '/item/reorder?' );
+	  $httpBackend.expectGET( LOCALHOST + '/canvas/NaN' ).respond( projectReorder );
 	  scope.sortableOptions.stop( '', { 'item' : { 'index' : function(){ return '1'; }, 'context' : { 'className' : 'ac' } } } );
 	  $httpBackend.flush();
 	  expect( scope.projeto.itens.ac[ 0 ].order ).toBe( '1' );

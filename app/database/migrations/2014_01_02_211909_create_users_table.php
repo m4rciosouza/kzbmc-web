@@ -1,8 +1,9 @@
 <?php
 
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsuariosTable extends Migration {
+class CreateUsersTable extends Migration {
 
 	/**
 	 * Run the migrations.
@@ -11,13 +12,13 @@ class CreateUsuariosTable extends Migration {
 	 */
 	public function up()
 	{
-		Schema::create( 'usuarios', function( $table )
+		Schema::create( 'users', function( $table )
 		{
 			$table->engine = 'MyISAM';
 			$table->increments( 'id' );
-			$table->string( 'email' )->unique();
-			$table->string( 'nome' );
-			$table->timestamps();
+            $table->string( 'email', 200 )->unique();
+            $table->string( 'password' );
+            $table->timestamps();
 		});
 	}
 
@@ -28,7 +29,7 @@ class CreateUsuariosTable extends Migration {
 	 */
 	public function down()
 	{
-		Schema::drop( 'usuarios' );
+		Schema::drop( 'users' );
 	}
 
 }

@@ -1,6 +1,12 @@
 'use strict';
 
-angular.module('LocalStorageModule').value('prefix', 'kzbmc');
+/*
+ * Uncomment for localhost development
+ */
+//sessionStorage.authenticated = true;
+
+angular.module( 'LocalStorageModule' ).value( 'prefix', 'kzbmc' );
+
 var kzbmcMobileApp = angular.module('kzbmcMobileApp', [
   'ngRoute',
   'ngResource',
@@ -17,22 +23,51 @@ var kzbmcMobileApp = angular.module('kzbmcMobileApp', [
         templateUrl: 'views/canvas.html',
         controller: 'CanvasCtrl'
       })
+      .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
-  });
+  })
+  .config( function( $httpProvider ) { // authentication check filter
+        var interceptor = [ '$rootScope', '$location', '$q', function( $rootScope, $location, $q ) {
+	        var success = function( response ) {
+	            return response;
+	          };
+	        var error = function( response ) {
+	            if( response.status === 401 ) {
+	              delete sessionStorage.authenticated;
+	              $location.path( '/login' );
+	            }
+	            return $q.reject( response );
+	          };
+	        return function( promise ) {
+	            return promise.then( success, error );
+	          };
+	      }];
+        $httpProvider.responseInterceptors.push( interceptor );
+      });
 
-kzbmcMobileApp.factory( 'CanvasService', [ '$resource', function( $resource ) {
+kzbmcMobileApp.constant( 'LOCALHOST', 'http://localhost:8888/kzbmc-web/public' );
+
+// services
+kzbmcMobileApp.factory( 'CanvasService', [ '$resource', 'LOCALHOST', function( $resource, LOCALHOST ) {
 	return $resource(
-			'http://localhost:8888/kzbmc-web/public/canvas/:id',
+			LOCALHOST + '/canvas/:id',
 			{ id : '@id' }
 		);
 }]);
 
-kzbmcMobileApp.factory( 'ItemService', [ '$resource', function( $resource ) {
+kzbmcMobileApp.factory( 'ItemService', [ '$resource', 'LOCALHOST', function( $resource, LOCALHOST ) {
 	return $resource(
-			'http://localhost:8888/kzbmc-web/public/item/:id',
+			LOCALHOST + '/item/:id',
 			{ id : '@id' },
-			{ reorder : { method : 'POST', url : 'http://localhost:8888/kzbmc-web/public/item/reorder' } }
+			{ reorder : { method : 'POST', url : LOCALHOST + '/item/reorder' } }
 		);
 }]);
+
+kzbmcMobileApp.factory( 'Authenticate', [ '$resource', 'LOCALHOST', function( $resource, LOCALHOST ) {
+    return $resource( LOCALHOST + '/service/authenticate' );
+  }]);

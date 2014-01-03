@@ -36,3 +36,9 @@ Route::group( array( 'prefix' => 'item' ), function()
 	 */
 	Route::post('/reorder', 'ItemController@reorder' );
 });
+
+// Route for the Auth RestFul API
+Route::group( array( 'prefix' => 'service' ), function() 
+{
+	Route::resource( 'authenticate', 'AuthenticationController' );
+});

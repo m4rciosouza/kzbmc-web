@@ -7,6 +7,11 @@
  */
 class CanvasController extends BaseController
 {
+	public function __construct()
+	{
+		$this->beforeFilter( 'serviceAuth' );
+	}
+	
 	/**
 	 * List all the Canvas.
 	 * 

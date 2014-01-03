@@ -3,6 +3,10 @@
 angular.module('kzbmcMobileApp')
   .controller('MainCtrl', [ '$scope', 'localStorageService', 'CanvasService', function( $scope, localStorageService, CanvasService ) {
 	  
+	  $scope.isAuth = function() {
+		  return sessionStorage.authenticated;
+	  };
+	  
 	  // create a new canvas
 	  $scope.cadastrar = function( canvas ) {
 		  if($scope.form.$valid) {

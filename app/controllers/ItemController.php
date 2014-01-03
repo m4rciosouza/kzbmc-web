@@ -7,6 +7,11 @@
  */
 class ItemController extends BaseController
 {
+	public function __construct()
+	{
+		$this->beforeFilter( 'serviceAuth' );
+	}
+	
 	/**
 	 * List all Items of a Canvas.
 	 * 

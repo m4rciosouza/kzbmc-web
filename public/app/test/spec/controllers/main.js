@@ -9,6 +9,8 @@ describe('Controller: MainCtrl', function () {
     scope,
   $httpBackend;
   
+  var LOCALHOST = 'http://localhost:8888/kzbmc-web/public';
+  
   var projects = [ { 'id' : 1, 'nome' : 'projeto 1', 'descricao' : 'desc projeto 1' }, { 'id' : 2, 'nome' : 'projeto 2', 'descricao' : 'desc projeto 2' } ];
   var projectsAdded = [ { 'id' : 1, 'nome' : 'projeto 1', 'descricao' : 'desc projeto 1' }, { 'id' : 2, 'nome' : 'projeto 2', 'descricao' : 'desc projeto 2' }, { 'id' : 3, 'nome' : 'projeto 3', 'descricao' : 'desc projeto 3' } ];
   var projectsUpdated = [ { 'id' : 1, 'nome' : 'projeto 1 mod', 'descricao' : 'desc projeto 1 mod' }, { 'id' : 2, 'nome' : 'projeto 2', 'descricao' : 'desc projeto 2' } ];
@@ -19,10 +21,10 @@ describe('Controller: MainCtrl', function () {
 	  // Set up the mock http service responses
       $httpBackend = $injector.get( '$httpBackend' );
       // set the response
-      $httpBackend.whenGET( 'http://localhost:8888/kzbmc-web/public/canvas' ).respond( projects );
-      $httpBackend.whenPOST( 'http://localhost:8888/kzbmc-web/public/canvas' ).respond( { 'id' : 3 } );
-      $httpBackend.whenPOST( 'http://localhost:8888/kzbmc-web/public/canvas/0' ).respond( { 'id' : 1 } );
-      $httpBackend.whenDELETE( 'http://localhost:8888/kzbmc-web/public/canvas/0' ).respond( { 'id' : 1 } );
+      $httpBackend.whenGET( LOCALHOST + '/canvas' ).respond( projects );
+      $httpBackend.whenPOST( LOCALHOST + '/canvas' ).respond( { 'id' : 3 } );
+      $httpBackend.whenPOST( LOCALHOST + '/canvas/0' ).respond( { 'id' : 1 } );
+      $httpBackend.whenDELETE( LOCALHOST + '/canvas/0' ).respond( { 'id' : 1 } );
 	  // inject the scope
       scope = $injector.get( '$rootScope' );
       // inject the controller
@@ -33,7 +35,7 @@ describe('Controller: MainCtrl', function () {
     }));
   
   beforeEach(function() {
-	  $httpBackend.expectGET( 'http://localhost:8888/kzbmc-web/public/canvas' );
+	  $httpBackend.expectGET( LOCALHOST + '/canvas' );
 	  $httpBackend.flush();
   });
   
@@ -58,8 +60,8 @@ describe('Controller: MainCtrl', function () {
   
   it( 'should create a new project', function() {
 	  scope.form = { '$valid' : true };
-	  $httpBackend.expectPOST( 'http://localhost:8888/kzbmc-web/public/canvas' );
-	  $httpBackend.expectGET( 'http://localhost:8888/kzbmc-web/public/canvas' ).respond( projectsAdded );
+	  $httpBackend.expectPOST( LOCALHOST + '/canvas' );
+	  $httpBackend.expectGET( LOCALHOST + '/canvas' ).respond( projectsAdded );
 	  scope.cadastrar( { 'nome' : 'projeto 3', 'descricao' : 'desc projeto 3' } );
 	  $httpBackend.flush();
 	  expect( scope.projetos.length ).toBe( 3 );
@@ -68,8 +70,8 @@ describe('Controller: MainCtrl', function () {
   
   it( 'should update a project name', function() {
 	  scope.index = 0;
-	  $httpBackend.expectPOST( 'http://localhost:8888/kzbmc-web/public/canvas/0' );
-	  $httpBackend.expectGET( 'http://localhost:8888/kzbmc-web/public/canvas' ).respond( projectsUpdated );
+	  $httpBackend.expectPOST( LOCALHOST + '/canvas/0' );
+	  $httpBackend.expectGET( LOCALHOST + '/canvas' ).respond( projectsUpdated );
 	  scope.atualizar( { 'id' : 1, 'nome' : 'projeto 1 mod', 'descricao' : 'desc projeto 1 mod' } );
 	  $httpBackend.flush();
 	  expect( scope.projetos.length ).toBe( 2 );
@@ -78,8 +80,8 @@ describe('Controller: MainCtrl', function () {
   
   it( 'should remove a project', function() {
 	  scope.index = 0;
-	  $httpBackend.expectDELETE( 'http://localhost:8888/kzbmc-web/public/canvas/0' );
-	  $httpBackend.expectGET( 'http://localhost:8888/kzbmc-web/public/canvas' ).respond( projectsDeleted );
+	  $httpBackend.expectDELETE( LOCALHOST + '/canvas/0' );
+	  $httpBackend.expectGET( LOCALHOST + '/canvas' ).respond( projectsDeleted );
 	  scope.remover();
 	  $httpBackend.flush();
 	  expect( scope.projetos.length ).toBe( 1 );
