@@ -3,6 +3,7 @@ namespace KZ\Services;
 
 use \Illuminate\Support\Facades\Input;
 use \Illuminate\Support\Facades\Route;
+use \Illuminate\Support\Facades\Auth;
 use \Canvas;
 use \Item;
 
@@ -55,6 +56,7 @@ class CanvasService
 		{
 			return array( 'msgs' => $canvas->validate()->all() );
 		}
+		$canvas->user_id = Auth::check() ? Auth::getUser()->id : '-1';
 		$canvas->save();
 		return array( 'id' => $canvas->id );		
 	}

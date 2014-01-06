@@ -37,8 +37,19 @@ Route::group( array( 'prefix' => 'item' ), function()
 	Route::post('/reorder', 'ItemController@reorder' );
 });
 
+// Route for the Authentication RestFul API
+Route::group( array( 'prefix' => 'auth' ), function()
+{
+	Route::post('/login', 'AuthenticationController@login' );
+	Route::get('/logout', 'AuthenticationController@logout' );
+	Route::get('/{id}', 'AuthenticationController@view' );
+	Route::post('/', 'AuthenticationController@create' );
+	Route::post('/{id}', 'AuthenticationController@update' );
+	Route::delete('/{id}', 'AuthenticationController@delete' );
+});
+
 // Route for the Auth RestFul API
-Route::group( array( 'prefix' => 'service' ), function() 
+/*Route::group( array( 'prefix' => 'service' ), function() 
 {
 	Route::resource( 'authenticate', 'AuthenticationController' );
-});
+});*/

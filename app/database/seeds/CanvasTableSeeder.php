@@ -12,11 +12,13 @@ class CanvasTableSeeder extends Seeder
 		Canvas::create( array(
 			'name' 			=> 'Project #1',
 			'description' 	=> 'Description of Project #1', 
+			'user_id'		=> '1',
 		));
 		
 		Canvas::create( array(
 			'name' 			=> 'Project #2',
 			'description' 	=> 'Description of Project #2',
+			'user_id'		=> '1',
 		));
 	}
 }

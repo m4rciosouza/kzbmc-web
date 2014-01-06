@@ -1,91 +1,81 @@
 <?php
-
-class AuthenticationController extends \BaseController
+/**
+ * RESTFul API for the Authentication management.
+ * 
+ * @author marciosouza
+ *
+ */
+class AuthenticationController extends BaseController
 {
 	/**
-	 * Display a listing of the resource.
+	 * Do the logout.
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function logout()
 	{
-		Auth::logout();
-		return Response::json( [ 'flash' => trans( 'auth.logout_sucesso' ) ], 200 );
+		return AuthenticationService::logout();
 	}
 
 	/**
-	 * Show the form for creating a new resource.
+	 * Do the login.
 	 *
 	 * @return Response
+	 */
+	public function login()
+	{
+		return AuthenticationService::login();
+	}
+	
+	/**
+	 * Create a new user
+	 *
+	 * @return JSON
 	 */
 	public function create()
 	{
-		//
+		return Response::json( AuthenticationService::create() );
 	}
 
 	/**
-	 * Store a newly created resource in storage.
+	 * Updates an user.
 	 *
-	 * @return Response
-	 */
-	public function store()
-	{
-		$credentials = array(
-				'email' 	=> Input::get( 'email' ),
-				'password' 	=> Input::get( 'password' )
-		);
-		if( Auth::attempt( $credentials ) )
-		{
-			return Response::json( [ 'user' => Auth::user()->toArray() ], 202 );
-		}
-		else
-		{
-			return Response::json( [ 'flash' => trans( 'auth.erro_autenticando' ) ], 401 );
-		}
-	}
-
-	/**
-	 * Display the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function show($id)
-	{
-		//
-	}
-
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @param  int  $id
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
-	}
-
-	/**
-	 * Update the specified resource in storage.
-	 *
-	 * @param  int  $id
-	 * @return Response
+	 * @return JSON
 	 */
 	public function update($id)
 	{
-		//
+		if( ! Auth::check() )
+		{
+			return Response::json( [ 'flash' => 'you should be connect to access this URL' ], 401 );
+		}
+		return Response::json( AuthenticationService::update() );
 	}
 
 	/**
-	 * Remove the specified resource from storage.
+	 * Delete an user.
 	 *
-	 * @param  int  $id
-	 * @return Response
+	 * @return JSON
 	 */
-	public function destroy($id)
+	public function delete()
 	{
-		//
+		if( ! Auth::check() )
+		{
+			return Response::json( [ 'flash' => 'you should be connect to access this URL' ], 401 );
+		}
+		return Response::json( AuthenticationService::delete() );
 	}
 
+	/**
+	 * Return a user's data
+	 *
+	 * @return JSON
+	 */
+	public function view()
+	{
+		if( ! Auth::check() )
+		{
+			return Response::json( [ 'flash' => 'you should be connect to access this URL' ], 401 );
+		}
+		return Response::json( AuthenticationService::view() );
+	}
 }
