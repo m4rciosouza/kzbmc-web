@@ -25,7 +25,7 @@ class CanvasService
 	public function getAll( $orderBy = 'name', $direction = 'ASC' )
 	{
 		$arrCanvas = array();
-		$modelCanvas = Canvas::orderBy( $orderBy, $direction )->get();
+		$modelCanvas = Canvas::where( 'user_id', Auth::getUser()->id )->orderBy( $orderBy, $direction )->get();
 		foreach( $modelCanvas as $canvas )
 		{
 			$arrCanvas[] = $this->getCanvasArray( $canvas );
@@ -40,7 +40,7 @@ class CanvasService
 	 */
 	public function view() 
 	{
-		return $this->getCanvasArray( Canvas::find( (int) Route::input( 'id' ) ) );
+		return $this->getCanvasArray( Canvas::where( 'user_id', Auth::getUser()->id )->where( 'id', (int) Route::input( 'id' ) )->first() );
 	}
 	
 	/**
@@ -68,7 +68,7 @@ class CanvasService
 	 */
 	public function update()
 	{
-		$canvas = Canvas::find( (int) Route::input( 'id' ) );
+		$canvas = Canvas::where( 'user_id', Auth::getUser()->id )->where( 'id', (int) Route::input( 'id' ) )->first();
 		if( ! $canvas )
 		{
 			return array( 'msgs' => trans( 'canvas.nao_encontrado' ) );

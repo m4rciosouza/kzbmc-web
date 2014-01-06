@@ -69,5 +69,5 @@ kzbmcMobileApp.factory( 'ItemService', [ '$resource', 'LOCALHOST', function( $re
 }]);
 
 kzbmcMobileApp.factory( 'Authenticate', [ '$resource', 'LOCALHOST', function( $resource, LOCALHOST ) {
-    return $resource( LOCALHOST + '/service/authenticate' );
+    return $resource( LOCALHOST + '/auth/login' );
   }]);
