@@ -6,6 +6,7 @@ use \Illuminate\Support\Facades\Route;
 use \Illuminate\Support\Facades\Auth;
 use \Canvas;
 use \Item;
+use \Token;
 
 /**
  * Service that manage, process and return all the data based on Canvas service.
@@ -25,7 +26,7 @@ class CanvasService
 	public function getAll( $orderBy = 'name', $direction = 'ASC' )
 	{
 		$arrCanvas = array();
-		$modelCanvas = Canvas::where( 'user_id', Auth::getUser()->id )->orderBy( $orderBy, $direction )->get();
+		$modelCanvas = Canvas::where( 'user_id', Token::getUserId() )->orderBy( $orderBy, $direction )->get();
 		foreach( $modelCanvas as $canvas )
 		{
 			$arrCanvas[] = $this->getCanvasArray( $canvas );
@@ -40,7 +41,7 @@ class CanvasService
 	 */
 	public function view() 
 	{
-		return $this->getCanvasArray( Canvas::where( 'user_id', Auth::getUser()->id )->where( 'id', (int) Route::input( 'id' ) )->first() );
+		return $this->getCanvasArray( Canvas::where( 'user_id', Token::getUserId() )->where( 'id', (int) Route::input( 'id' ) )->first() );
 	}
 	
 	/**
@@ -56,7 +57,8 @@ class CanvasService
 		{
 			return array( 'msgs' => $canvas->validate()->all() );
 		}
-		$canvas->user_id = Auth::check() ? Auth::getUser()->id : '-1';
+		$token = Token::getToken();
+		$canvas->user_id = $token !== FALSE ? $token->user_id : '-1';
 		$canvas->save();
 		return array( 'id' => $canvas->id );		
 	}
@@ -68,7 +70,7 @@ class CanvasService
 	 */
 	public function update()
 	{
-		$canvas = Canvas::where( 'user_id', Auth::getUser()->id )->where( 'id', (int) Route::input( 'id' ) )->first();
+		$canvas = Canvas::where( 'user_id', Token::getUserId() )->where( 'id', (int) Route::input( 'id' ) )->first();
 		if( ! $canvas )
 		{
 			return array( 'msgs' => trans( 'canvas.nao_encontrado' ) );

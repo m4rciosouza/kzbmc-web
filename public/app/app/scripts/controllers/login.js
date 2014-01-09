@@ -19,7 +19,7 @@ angular.module('kzbmcMobileApp')
 	
 	  // do the logout
 	  $scope.logout = function () {
-	        Authenticate.get( {}, function() {
+	        Authenticate.logout( {}, function() {
                 delete sessionStorage.authenticated;
 	              $location.path( '/login' );
 	            });
@@ -28,5 +28,23 @@ angular.module('kzbmcMobileApp')
 	  // check if its logged in
 	  $scope.isAuth = function() {
 		  return sessionStorage.authenticated;
+	  };
+	  
+	  // add a new user
+	  $scope.novoUsuario = function ( usuario ) {
+		  usuario = '';
+	        /*Authenticate.logout( {}, function() {
+                delete sessionStorage.authenticated;
+	              $location.path( '/login' );
+	            });*/
+	  };
+	  
+	  // add a new user
+	  $scope.esqueceuSenha = function ( usuarioSenha ) {
+		  usuarioSenha = '';
+	        /*Authenticate.logout( {}, function() {
+                delete sessionStorage.authenticated;
+	              $location.path( '/login' );
+	            });*/
 	  };
   }]);

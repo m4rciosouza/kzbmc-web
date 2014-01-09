@@ -50,6 +50,29 @@ var kzbmcMobileApp = angular.module('kzbmcMobileApp', [
         $httpProvider.responseInterceptors.push( interceptor );
       });
 
+// directives
+kzbmcMobileApp.directive( 'repetirSenha', function() {
+    return {
+        require : 'ngModel',
+        link : function( scope, elm, attrs, ctrl ) {
+            ctrl.$parsers.unshift( function( viewValue ) {
+                if( scope.usuario === undefined ) {
+                  return undefined;
+                }
+                if( scope.usuario.senha === viewValue ) {
+                  // it is valid
+                  ctrl.$setValidity( 'repetirSenha', true );
+                  return viewValue;
+                } else {
+                  // it is invalid, return undefined (no model update)
+                  ctrl.$setValidity( 'repetirSenha', false );
+                  return undefined;
+                }
+              });
+          }
+      };
+  });
+
 kzbmcMobileApp.constant( 'LOCALHOST', 'http://localhost:8888/kzbmc-web/public' );
 
 // services
@@ -69,5 +92,8 @@ kzbmcMobileApp.factory( 'ItemService', [ '$resource', 'LOCALHOST', function( $re
 }]);
 
 kzbmcMobileApp.factory( 'Authenticate', [ '$resource', 'LOCALHOST', function( $resource, LOCALHOST ) {
-    return $resource( LOCALHOST + '/auth/login' );
+    return $resource(
+            LOCALHOST + '/auth/login', {},
+            { logout : { method : 'GET', url : LOCALHOST + '/auth/logout' } }
+       );
   }]);

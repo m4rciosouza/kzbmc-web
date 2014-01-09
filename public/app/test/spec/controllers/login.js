@@ -16,8 +16,8 @@ describe('Controller: LoginCtrl', function () {
 	  // Set up the mock http service responses
       $httpBackend = $injector.get( '$httpBackend' );
       // set the response
-      $httpBackend.whenGET( LOCALHOST + '/service/authenticate' ).respond( {} );
-      $httpBackend.whenPOST( LOCALHOST + '/service/authenticate' ).respond( {} );
+      $httpBackend.whenGET( LOCALHOST + '/auth/logout' ).respond( {} );
+      $httpBackend.whenPOST( LOCALHOST + '/auth/login' ).respond( {} );
 	  // inject the scope
       scope = $injector.get( '$rootScope' );
       // inject the controller
@@ -30,7 +30,7 @@ describe('Controller: LoginCtrl', function () {
   it( 'should do the login', function() {
 	  scope.email = 'admin@admin.com';
 	  scope.password = 'admin';
-	  $httpBackend.expectPOST( LOCALHOST + '/service/authenticate' );
+	  $httpBackend.expectPOST( LOCALHOST + '/auth/login' );
 	  scope.login();
 	  $httpBackend.flush();
 	  expect( scope.flash ).toBe( '' );
@@ -38,7 +38,7 @@ describe('Controller: LoginCtrl', function () {
   });
 
   it( 'should do the logout', function () {
-	  $httpBackend.expectGET( LOCALHOST + '/service/authenticate' );
+	  $httpBackend.expectGET( LOCALHOST + '/auth/logout' );
 	  scope.logout();
 	  $httpBackend.flush();
 	  expect( sessionStorage.authenticated ).toBe( undefined );

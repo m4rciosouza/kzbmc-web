@@ -6,6 +6,7 @@ use \Illuminate\Support\Facades\Route;
 use \Illuminate\Support\Facades\Auth;
 use \Illuminate\Support\Facades\Response;
 use \User;
+use \Token;
 
 /**
  * Service that login, logout, manage, process and return all the data based on Authentication service.
@@ -29,7 +30,11 @@ class AuthenticationService
 		);
 		if( Auth::attempt( $credentials ) )
 		{
-			return Response::json( [ 'user' => Auth::user()->toArray() ], 202 );
+			$token = new Token;
+			$token->token = md5( uniqid() );
+			$token->user_id = Auth::user()->id;
+			$token->save();
+			return Response::json( [ 'user' => Auth::user()->toArray(), 'token' => $token->token ], 202 );
 		}
 		else
 		{
@@ -44,8 +49,14 @@ class AuthenticationService
 	 */
 	public function logout()
 	{
-		Auth::logout();
-		return Response::json( [ 'flash' => trans( 'auth.logout_sucesso' ) ], 200 );
+		if( isset( $_SERVER[ 'HTTP_AUTH_TOKEN' ] ) )
+		{
+			$token = $_SERVER[ 'HTTP_AUTH_TOKEN' ];
+			Token::where( 'token', $token )->delete();
+			return Response::json( [ 'flash' => trans( 'auth.logout_sucesso' ) ], 200 );
+		}
+		//Auth::logout();
+		return Response::json( [ 'flash' => trans( 'auth.erro_logout' ) ], 401 );
 	}
 	
 	/**

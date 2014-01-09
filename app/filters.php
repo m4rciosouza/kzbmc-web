@@ -95,8 +95,9 @@ Route::filter('csrf', function()
 
 Route::filter( 'serviceAuth', function()
 {
-	if( ! Auth::check() )
+	$token = Token::getToken();
+	if( ! $token )
 	{
-		return Response::json( [ 'flash' => 'you should be connect to access this URL' ], 401 );
+		return Response::json( [ 'flash' => trans( 'auth.permissao_negada' ) ], 401 );
 	}
 });
