@@ -5,6 +5,7 @@ use \Illuminate\Support\Facades\Input;
 use \Illuminate\Support\Facades\Route;
 use \Illuminate\Support\Facades\Auth;
 use \Illuminate\Support\Facades\Response;
+use \Illuminate\Support\Facades\Request;
 use \User;
 use \Token;
 
@@ -30,6 +31,7 @@ class AuthenticationService
 		);
 		if( Auth::attempt( $credentials ) )
 		{
+			Token::where( 'user_id', Auth::user()->id )->delete();
 			$token = new Token;
 			$token->token = md5( uniqid() );
 			$token->user_id = Auth::user()->id;
@@ -49,13 +51,12 @@ class AuthenticationService
 	 */
 	public function logout()
 	{
-		if( isset( $_SERVER[ 'HTTP_AUTH_TOKEN' ] ) )
+		$authToken = Request::header( 'AUTH_TOKEN' );
+		if( isset( $authToken ) && ! empty( $authToken ) )
 		{
-			$token = $_SERVER[ 'HTTP_AUTH_TOKEN' ];
-			Token::where( 'token', $token )->delete();
+			Token::where( 'token', $authToken )->delete();
 			return Response::json( [ 'flash' => trans( 'auth.logout_sucesso' ) ], 200 );
 		}
-		//Auth::logout();
 		return Response::json( [ 'flash' => trans( 'auth.erro_logout' ) ], 401 );
 	}
 	

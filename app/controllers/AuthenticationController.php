@@ -44,7 +44,8 @@ class AuthenticationController extends BaseController
 	 */
 	public function update($id)
 	{
-		if( ! Auth::check() )
+		$token = Token::getToken();
+		if( ! $token )
 		{
 			return Response::json( [ 'flash' => 'you should be connect to access this URL' ], 401 );
 		}
@@ -58,7 +59,8 @@ class AuthenticationController extends BaseController
 	 */
 	public function delete()
 	{
-		if( ! Auth::check() )
+		$token = Token::getToken();
+		if( ! $token )
 		{
 			return Response::json( [ 'flash' => 'you should be connect to access this URL' ], 401 );
 		}
@@ -72,7 +74,8 @@ class AuthenticationController extends BaseController
 	 */
 	public function view()
 	{
-		if( ! Auth::check() )
+		$token = Token::getToken();
+		if( ! $token )
 		{
 			return Response::json( [ 'flash' => 'you should be connect to access this URL' ], 401 );
 		}

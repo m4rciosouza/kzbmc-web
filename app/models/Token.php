@@ -20,9 +20,9 @@ class Token extends Eloquent
 	 */
 	public static function getToken()
 	{
-		if( isset( $_SERVER[ 'HTTP_AUTH_TOKEN' ] ) )
+		$authToken = Request::header( 'AUTH_TOKEN' );
+		if( isset( $authToken ) && ! empty( $authToken ) )
 		{
-			$authToken = $_SERVER[ 'HTTP_AUTH_TOKEN' ];
 			$token = Token::where( 'token', $authToken )->first();
 			if( $token )
 			{
