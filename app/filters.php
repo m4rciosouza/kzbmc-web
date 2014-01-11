@@ -100,4 +100,14 @@ Route::filter( 'serviceAuth', function()
 	{
 		return Response::json( [ 'flash' => trans( 'auth.permissao_negada' ) ], 401 );
 	}
+	else 
+	{
+		if( $token->expired === TRUE )
+		{
+			return Response::json( [ 'flash' => trans( 'auth.sessao_expirada' ) ], 401 );
+		}
+	}
+	// update the last accessed time
+	$token->updated_at = time();
+	$token->save();
 });

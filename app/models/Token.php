@@ -13,6 +13,10 @@ class Token extends Eloquent
 {
 	protected $table = 'tokens';
 	
+	public $expired;
+	
+	const EXPIRATION_TIME = 30;
+	
 	/**
 	 * Return the token object.
 	 * 
@@ -26,6 +30,9 @@ class Token extends Eloquent
 			$token = Token::where( 'token', $authToken )->first();
 			if( $token )
 			{
+				// check and flag about toke expiration
+				$timeExpiration = strtotime( $token->updated_at . ' +' . Token::EXPIRATION_TIME . ' minutes' );
+				$token->expired = ( $timeExpiration >= time() ) ? FALSE : TRUE;
 				return $token;
 			}
 		}
